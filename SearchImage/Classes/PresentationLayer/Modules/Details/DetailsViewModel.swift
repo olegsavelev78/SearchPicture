@@ -19,9 +19,17 @@ final class DetailsViewModel {
     
     private func setUpBindings() {        
         input.didLoad.publisher
-            .sink { [weak self] _  in
+            .sink { [weak self] _ in
                 guard let picture = self?.picture else { return }
                 self?.output.picture.send(picture)
+            }
+            .store(in: &bag)
+        
+        input.openLinkTapped.publisher
+            .sink { [weak self] _ in
+                guard let urlString = self?.picture?.link,
+                      let url = URL(string: urlString) else { return }
+                self?.output.openLink.send(url)
             }
             .store(in: &bag)
     }
@@ -30,9 +38,11 @@ final class DetailsViewModel {
 extension DetailsViewModel {
     class Input {
         var didLoad = PublishedAction<Void>()
+        var openLinkTapped = PublishedAction<Void>()
     }
     
     class Output {
         var picture = PublishedAction<PictureModel>()
+        var openLink = PublishedAction<URL>()
     }
 }

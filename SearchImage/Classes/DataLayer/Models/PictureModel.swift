@@ -20,4 +20,5 @@ struct PictureModel: Codable {
     var thumbnail: String
     var title: String
     var original: String
+    var link: String
 }

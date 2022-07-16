@@ -29,6 +29,7 @@ final class MainViewModel {
             .sink { [weak self] _ in
                 guard let text = self?.input.searchText,
                       text != "" else { return }
+                self?.output.pictures = []
                 self?.output.state = .loading
                 self?.numberPage = 0
                 self?.fetchPicture()
@@ -110,6 +111,6 @@ extension MainViewModel {
     class Output {
         @PublishedProperty var pictures: [PictureModel] = []
         @PublishedProperty var state: ViewState = .initial
-        var openPicture = PublishedAction<PictureModel>()
+        var openPicture = PublishedAction<Int>()
     }
 }

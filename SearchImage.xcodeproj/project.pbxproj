@@ -40,6 +40,10 @@
 		E7A1FF8C2881BC23002520D1 /* ToolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A1FF882881BC23002520D1 /* ToolViewController.swift */; };
 		E7A1FF8D2881BC23002520D1 /* ToolCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A1FF892881BC23002520D1 /* ToolCoordinator.swift */; };
 		E7A1FF902881CD39002520D1 /* SegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A1FF8F2881CD39002520D1 /* SegmentView.swift */; };
+		E7A1FF962883118E002520D1 /* WebAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A1FF922883118E002520D1 /* WebAssembly.swift */; };
+		E7A1FF972883118E002520D1 /* WebViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A1FF932883118E002520D1 /* WebViewModel.swift */; };
+		E7A1FF982883118E002520D1 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A1FF942883118E002520D1 /* WebViewController.swift */; };
+		E7A1FF992883118E002520D1 /* WebCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A1FF952883118E002520D1 /* WebCoordinator.swift */; };
 		E7C4C250287F084E005D736C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C4C24F287F084E005D736C /* AppDelegate.swift */; };
 		E7C4C257287F084E005D736C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7C4C255287F084E005D736C /* Main.storyboard */; };
 		E7C4C259287F0850005D736C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7C4C258287F0850005D736C /* Assets.xcassets */; };
@@ -75,6 +79,10 @@
 		E7A1FF882881BC23002520D1 /* ToolViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolViewController.swift; sourceTree = "<group>"; };
 		E7A1FF892881BC23002520D1 /* ToolCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolCoordinator.swift; sourceTree = "<group>"; };
 		E7A1FF8F2881CD39002520D1 /* SegmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentView.swift; sourceTree = "<group>"; };
+		E7A1FF922883118E002520D1 /* WebAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAssembly.swift; sourceTree = "<group>"; };
+		E7A1FF932883118E002520D1 /* WebViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewModel.swift; sourceTree = "<group>"; };
+		E7A1FF942883118E002520D1 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		E7A1FF952883118E002520D1 /* WebCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebCoordinator.swift; sourceTree = "<group>"; };
 		E7C4C24C287F084E005D736C /* SearchImage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SearchImage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7C4C24F287F084E005D736C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E7C4C256287F084E005D736C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -192,6 +200,7 @@
 		E73C2E45287F154800856934 /* Details */ = {
 			isa = PBXGroup;
 			children = (
+				E7A1FF9128831176002520D1 /* WebView */,
 				E73C2E47287F155A00856934 /* DetailsViewModel.swift */,
 				E73C2E48287F155A00856934 /* DetailsViewController.swift */,
 				E73C2E49287F155A00856934 /* DetailsCoordinator.swift */,
@@ -302,6 +311,17 @@
 				E7A1FF8F2881CD39002520D1 /* SegmentView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		E7A1FF9128831176002520D1 /* WebView */ = {
+			isa = PBXGroup;
+			children = (
+				E7A1FF922883118E002520D1 /* WebAssembly.swift */,
+				E7A1FF932883118E002520D1 /* WebViewModel.swift */,
+				E7A1FF942883118E002520D1 /* WebViewController.swift */,
+				E7A1FF952883118E002520D1 /* WebCoordinator.swift */,
+			);
+			path = WebView;
 			sourceTree = "<group>";
 		};
 		E7C4C243287F084E005D736C = {
@@ -425,12 +445,15 @@
 				E73C2E6B287F4FA300856934 /* AppTheme.swift in Sources */,
 				E73C2E6D287F4FCB00856934 /* UIFont + Ext.swift in Sources */,
 				E73C2E5A287F45BB00856934 /* NSObject + Ext.swift in Sources */,
+				E7A1FF962883118E002520D1 /* WebAssembly.swift in Sources */,
 				E7A1FF8B2881BC23002520D1 /* ToolViewModel.swift in Sources */,
 				E75E81172880806D00251AF0 /* ViewState.swift in Sources */,
 				E73C2E73287F5D3E00856934 /* DetailsCoordinator.swift in Sources */,
+				E7A1FF972883118E002520D1 /* WebViewModel.swift in Sources */,
 				E73C2E42287F109600856934 /* MainViewModel.swift in Sources */,
 				E73C2E72287F5B5200856934 /* Combine + Ext.swift in Sources */,
 				E73C2E63287F492E00856934 /* LoadableCollectionViewCell.swift in Sources */,
+				E7A1FF992883118E002520D1 /* WebCoordinator.swift in Sources */,
 				E73C2E4C287F155A00856934 /* DetailsViewController.swift in Sources */,
 				E73C2E51287F1B5A00856934 /* AppCoordinator.swift in Sources */,
 				E73C2E60287F484E00856934 /* ImageCell.swift in Sources */,
@@ -442,6 +465,7 @@
 				E7A1FF8A2881BC23002520D1 /* ToolAssembly.swift in Sources */,
 				E73C2E4B287F155A00856934 /* DetailsViewModel.swift in Sources */,
 				E73C2E76287F600100856934 /* PictureService.swift in Sources */,
+				E7A1FF982883118E002520D1 /* WebViewController.swift in Sources */,
 				E73C2E58287F41A200856934 /* Coordinator.swift in Sources */,
 				E736E8632880CBFC00BC0AC0 /* MainAssembly.swift in Sources */,
 			);

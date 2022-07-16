@@ -10,6 +10,24 @@
       }
     },
     {
+      "identity" : "fittedsheets",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/gordontucker/FittedSheets",
+      "state" : {
+        "revision" : "65f9c93718f96c6de234d38c9976e67a0d9e2b28",
+        "version" : "2.4.2"
+      }
+    },
+    {
+      "identity" : "kingfisher",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/onevcat/Kingfisher.git",
+      "state" : {
+        "revision" : "2235a22ca249199cb736237f4bb9cc12b6ed416a",
+        "version" : "7.3.0"
+      }
+    },
+    {
       "identity" : "moya",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Moya/Moya.git",

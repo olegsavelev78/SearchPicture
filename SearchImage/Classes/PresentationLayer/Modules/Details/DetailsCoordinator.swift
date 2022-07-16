@@ -2,12 +2,12 @@ import Combine
 import UIKit
 
 class DetailsCoordinator: Coordinator {
-    let rootViewController: UIViewController
+    let rootViewController: DetailsViewController
     
     private var bag = CancelBag()
     
-    init(pictureID: Int) {
-        self.rootViewController = DetailsViewController()
+    init(picture: PictureModel) {
+        self.rootViewController = DetailsAssembly.createModule(picture: picture)
     }
     
     override func start() {}

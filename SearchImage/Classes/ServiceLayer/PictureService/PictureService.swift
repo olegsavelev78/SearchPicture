@@ -3,21 +3,91 @@ import Moya
 import Foundation
 import CombineMoya
 
-enum PictureService {
-    case fetchPicture(page: Int, searchLine: String)
+enum SizeType: Int {
+    case initial, large, medium, smale
+    
+    var description: String? {
+        switch self {
+        case .large:
+            return "l"
+        case .medium:
+            return "m"
+        case .smale:
+            return "i"
+        default: return nil
+        }
+    }
 }
 
-extension PictureService: TargetType {
+enum CountryType: Int {
+    case initial, china, usa, russia
+    
+    var description: String? {
+        switch self {
+        case .china:
+            return "cn"
+        case .usa:
+            return "us"
+        case .russia:
+            return "ru"
+        default: return nil
+        }
+    }
+}
+
+enum LanguageType: Int {
+    case initial, russian, armenian, english
+    
+    var description: String? {
+        switch self {
+        case .russian:
+            return "ru"
+        case .armenian:
+            return "hy"
+        case .english:
+            return "en"
+        default: return nil
+        }
+    }
+}
+
+enum LocationAPI {
+    case fetchPicture(page: Int,
+                      searchLine: String,
+                      country: CountryType? = nil,
+                      language: LanguageType? = nil,
+                      size: SizeType? = nil)
+}
+
+extension LocationAPI: TargetType {
     var params: [String: Any] {
         switch self {
-        case .fetchPicture(page: let page, searchLine: let searchLine):
-            return [
-                "apiKey": Constants.Keys.apiKey,
+        case let .fetchPicture(page,
+                               searchLine,
+                               country,
+                               language,
+                               size):
+            var params: [String: Any] = [:]
+            params = [
+                "api_key": Constants.Keys.apiKey,
                 "q": searchLine,
-                "page": page,
-                "num": 20,
-                "engine": "google"
+                "ijn" : page,
+                "tbm": "isch",
+                "google_domain": "google.com",
+                "tbs": "google.com",
             ]
+            if let country = country {
+                params["gl"] = country.description
+            }
+            
+            if let language = language {
+                params["hl"] = language.description
+            }
+            
+            if let size = size {
+                params["ic"] = size.description
+            }
+            return params
         }
     }
     var baseURL: URL { URL(string: "https://serpapi.com")! }
@@ -36,7 +106,7 @@ extension PictureService: TargetType {
     }
     var task: Task {
         switch self {
-        case .fetchPicture: // Send no parameters
+        case .fetchPicture:
             return .requestParameters(
                 parameters: params,
                 encoding: URLEncoding.queryString
@@ -52,24 +122,29 @@ extension PictureService: TargetType {
         ]
     }
 }
-// MARK: - Helpers
-private extension String {
-    var urlEscaped: String {
-        addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
-    }
 
-    var utf8Encoded: Data { Data(self.utf8) }
+protocol PictureService {
+    func fetchPicture(page: Int,
+                      searchLine: String,
+                      country: CountryType?,
+                      language: LanguageType?,
+                      size: SizeType?) -> AnyPublisher<PictureData, MoyaError>
 }
 
-protocol PictureService1 {
-    func fetchPicture(page: Int, searchLine: String) -> AnyPublisher<Response, MoyaError>
-}
+final class PictureServiceImp: PictureService {
+    
+    let moyaProvider = MoyaProvider<LocationAPI>()
 
-final class PictureServiceImp: PictureService1 {
-
-    private let moyaProvider = MoyaProvider<PictureService>()
-
-    func fetchPicture(page: Int, searchLine: String = "") -> AnyPublisher<Response, MoyaError> {
-        return moyaProvider.requestPublisher(.fetchPicture(page: page, searchLine: searchLine))
+    func fetchPicture(page: Int,
+                      searchLine: String,
+                      country: CountryType?,
+                      language: LanguageType?,
+                      size: SizeType?) -> AnyPublisher<PictureData, MoyaError> {
+        return moyaProvider.requestPublisher(
+            .fetchPicture(page: page,
+                          searchLine: searchLine,
+                          country: country, language: language,
+                          size: size))
+        .map(PictureData.self)
     }
 }

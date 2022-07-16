@@ -159,7 +159,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = items[indexPath.row]
-        viewModel.output.openPicture.send(item)
+        viewModel.output.openPicture.send(item.position)
     }
 }
 

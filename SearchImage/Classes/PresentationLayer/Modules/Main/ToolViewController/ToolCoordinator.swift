@@ -5,7 +5,7 @@ class ToolCoordinator: Coordinator {
     
     private var bag = CancelBag()
     
-    init(mainVM: MainViewModel, completion: @escaping () -> Void) {
+    init(mainVM: MainViewModel) {
         self.rootViewController = ToolAssembly.createModule(mainVM)
 
         rootViewController.viewModel.input.$country

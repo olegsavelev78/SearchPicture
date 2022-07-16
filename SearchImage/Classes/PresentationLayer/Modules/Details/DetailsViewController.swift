@@ -24,7 +24,7 @@ final class DetailsViewController: UIViewController {
         $0.layer.cornerRadius = 12
         $0.layer.masksToBounds = true
         $0.setTitleColor(.white, for: .normal)
-//        $0.addTarget(self, action: #selector(self.openTool), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(self.nextPicture), for: .touchUpInside)
     }
     
     private lazy var backButton = UIButton(type: .system).apply {
@@ -33,7 +33,7 @@ final class DetailsViewController: UIViewController {
         $0.layer.cornerRadius = 12
         $0.layer.masksToBounds = true
         $0.setTitleColor(.white, for: .normal)
-//        $0.addTarget(self, action: #selector(self.openTool), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(self.backPicture), for: .touchUpInside)
     }
     
     private lazy var openLinkButton = UIButton(type: .system).apply {
@@ -43,6 +43,11 @@ final class DetailsViewController: UIViewController {
         $0.layer.masksToBounds = true
         $0.setTitleColor(.white, for: .normal)
         $0.addTarget(self, action: #selector(self.openLink), for: .touchUpInside)
+    }
+    
+    private lazy var activityIndicator = UIActivityIndicatorView().apply {
+        $0.style = .large
+        $0.hidesWhenStopped = true
     }
     
     private var bag = CancelBag()
@@ -57,6 +62,7 @@ final class DetailsViewController: UIViewController {
         setupBindings()
         layoutConstraints()
         viewModel.input.didLoad.send(())
+        viewModel.output.state = .loading
     }
     
     override func loadView() {
@@ -76,17 +82,38 @@ final class DetailsViewController: UIViewController {
     private func bindViewToViewModel() {}
     
     private func bindViewModelToView() {
-        viewModel.output.picture.publisher
+        viewModel.output.$state
+            .sink { [weak self] state in
+                switch state {
+                case .loading:
+                    self?.activityIndicator.startAnimating()
+                case .loaded:
+                    self?.activityIndicator.stopAnimating()
+                default: break
+                }
+            }
+            .store(in: &bag)
+        
+        viewModel.output.$picture
             .sink { [weak self] picture in
-                print(picture.thumbnail)
-                guard let url = URL(string: picture.thumbnail) else { return }
-                self?.imageView.kf.setImage(with: url)
+                guard let url = URL(string: picture.original) else { return }
+                self?.imageView.kf.setImage(with: url) { [weak self] _ in
+                    self?.viewModel.output.state = .loaded
+                }
             }
             .store(in: &bag)
     }
     
     @objc private func openLink() {
         viewModel.input.openLinkTapped.send(())
+    }
+    
+    @objc private func nextPicture() {
+        viewModel.input.next.send(())
+    }
+    
+    @objc private func backPicture() {
+        viewModel.input.back.send(())
     }
     
     private func setupViews() {}
@@ -97,7 +124,7 @@ final class DetailsViewController: UIViewController {
          nextButton].forEach {
             stackView.addArrangedSubview($0)
         }
-        [imageView, stackView].forEach {
+        [imageView, stackView, activityIndicator].forEach {
             view.addSubview($0)
         }
     }
@@ -111,6 +138,10 @@ final class DetailsViewController: UIViewController {
             $0.top.equalTo(imageView.snp.bottom).offset(30)
             $0.left.right.equalToSuperview().inset(10)
             $0.bottom.equalToSuperview().inset(50)
+        }
+        
+        activityIndicator.snp.makeConstraints {
+            $0.center.equalToSuperview()
         }
     }
 }

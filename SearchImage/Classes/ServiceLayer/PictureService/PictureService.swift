@@ -87,6 +87,8 @@ extension LocationAPI: TargetType {
             if let size = size {
                 params["ic"] = size.description
             }
+            
+            debugPrint(params)
             return params
         }
     }

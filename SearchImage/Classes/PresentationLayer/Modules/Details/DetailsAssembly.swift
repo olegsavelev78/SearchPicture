@@ -8,11 +8,12 @@
 import UIKit
 
 final class DetailsAssembly {
-    class func createModule(picture: PictureModel) -> DetailsViewController {
+    class func createModule(pictures: [PictureModel], handleIndex: Int) -> DetailsViewController {
         let moduleViewController = DetailsViewController()
         
         let viewModel = DetailsViewModel()
-        viewModel.picture = picture
+        viewModel.pictures = pictures
+        viewModel.output.handleIndex = handleIndex
         
         moduleViewController.viewModel = viewModel
         

@@ -18,7 +18,7 @@ class MainCoordinator: Coordinator {
         
         rootViewController.viewModel.output.openPicture.publisher
             .sink { [weak self] in
-                self?.openPicture(picture: $0)
+                self?.openPicture(index: $0)
             }
             .store(in: &bag)
         
@@ -29,16 +29,15 @@ class MainCoordinator: Coordinator {
             .store(in: &bag)
     }
     
-    private func openPicture(picture: PictureModel) {
-        let coordinator = DetailsCoordinator(picture: picture)
+    private func openPicture(index: Int) {
+        let pictures = rootViewController.viewModel.output.pictures
+        let coordinator = DetailsCoordinator(pictures: pictures, handleIndex: index)
         rootViewController.navigationController?.pushViewController(coordinator.rootViewController, animated: true)
         coordinate(to: coordinator)
     }
     
     private func openTool() {
-        let coordinator = ToolCoordinator(mainVM: rootViewController.viewModel) {
-            print("asdfasdfadf")
-        }
+        let coordinator = ToolCoordinator(mainVM: rootViewController.viewModel)
         let options = SheetOptions(pullBarHeight: 0,
                                    setIntrinsicHeightOnNavigationControllers: false,
                                    shrinkPresentingViewController: false,

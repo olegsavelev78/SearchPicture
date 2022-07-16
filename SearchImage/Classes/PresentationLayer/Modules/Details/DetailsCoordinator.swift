@@ -6,8 +6,9 @@ class DetailsCoordinator: Coordinator {
     
     private var bag = CancelBag()
     
-    init(picture: PictureModel) {
-        self.rootViewController = DetailsAssembly.createModule(picture: picture)
+    init(pictures: [PictureModel], handleIndex: Int) {
+        self.rootViewController = DetailsAssembly.createModule(pictures: pictures,
+                                                               handleIndex: handleIndex)
     }
     
     override func start() {

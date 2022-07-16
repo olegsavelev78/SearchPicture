@@ -16,9 +16,11 @@ struct PictureData: Codable {
 }
 
 struct PictureModel: Codable {
-    var position: Int
-    var thumbnail: String
-    var title: String
-    var original: String
-    var link: String
+    var position: Int = .init()
+    var thumbnail: String = .init()
+    var title: String = .init()
+    var original: String = .init()
+    var link: String = .init()
+    
+    init() {}
 }
